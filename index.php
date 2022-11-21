@@ -96,3 +96,11 @@
     <script src="assets/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
+<?php
+    if (isset($_GET['error'])){
+        $error = $_GET['error'];
+        echo "<script>alert('$error');</script>";
+    }
+?>
