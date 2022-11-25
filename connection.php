@@ -5,8 +5,8 @@
     if(!$con){
         die("Error: Unable to connect to database");
     }
-    else{
-        echo "<script>alert('Connected to database')</script>";
-    }
+    // else{
+    //     echo "<script>alert('Connected to database')</script>";
+    // }
 
 ?>
