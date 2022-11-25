@@ -1,3 +1,4 @@
+<?php include 'connection.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Display Records</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
 
@@ -44,22 +45,47 @@
             </div>
         </div>
     </nav>
-    <div style="background-color: black; color: white; padding: 1rem; text-align: center; font-size: 2rem;">
-        <?php
-        session_start();
-        if ($_SESSION['uname'] != "") {
-            echo "<h2>Welcome To " . $_SESSION['uname'] . "</h2>";
-        ?>
-
-            <a href="logout.php" onclick="return confirm('Are You Sure This Account Is Logout.');">
-                <button type="button" style="background-color: white; color: black; padding: .5rem 5rem; font-size: 1.5rem; cursor: pointer;">Logout</button>
-            </a>
-
-        <?php
-        } else {
-            header("location: index.php");
-        }
-        ?>
+    <h2 class="text-center mt-5">
+        Display Records
+    </h2>
+    <div class="container mt-5">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email Address</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Date Of Birth</th>
+                    <th scope="col">City</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    $query = "SELECT * FROM `users`";
+                    $result = mysqli_query($con, $query);
+                    while($row = mysqli_fetch_array($result)){
+                ?>
+                    <tr>
+                        <td><?php echo $row['id'];?></td>
+                        <td><?php echo $row['name'];?></td>
+                        <td><?php echo $row['username'];?></td>
+                        <td><?php echo $row['email'];?></td>
+                        <td><?php echo $row['age'];?></td>
+                        <td><?php echo $row['dob'];?></td>
+                        <td><?php echo $row['city'];?></td>
+                        <td><?php echo $row['state'];?></td>
+                        <td><?php echo $row['country'];?></td>
+                    </tr>
+                <?php
+                    }
+                ?>
+                
+            </tbody>
+        </table>
     </div>
 </body>
 
