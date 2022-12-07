@@ -148,7 +148,7 @@
         </div>
     </div>
 
-    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
 </body>
@@ -172,7 +172,7 @@
             $sql = "INSERT INTO `users`(`name`, `username`, `email`, `age`, `dob`, `country`, `state`, `city`, `password`) VALUES ('$fullname','$username','$email','$age','$dob','$country','$state','$city','$password')";
             $query = mysqli_query($con, $sql);
             if($query){
-                echo "<script> alert('Insert Successfully')</script>";
+                header("location: index.html");
             }
             else{
                 echo "<script> alert('Sorry! This Record Is Not Saved.')</script>";

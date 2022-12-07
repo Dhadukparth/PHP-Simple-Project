@@ -47,6 +47,7 @@
             </div>
         </div>
     </nav>
+    
     <div style="background-color: black; color: white; padding: 1rem; text-align: center; font-size: 2rem;">
         <?php
         session_start();
@@ -58,6 +59,8 @@
         }
         ?>
     </div>
+    
+
 </body>
 
 </html>

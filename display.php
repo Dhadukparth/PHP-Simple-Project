@@ -73,7 +73,7 @@
                     $query = "SELECT * FROM `users`";
                     $result = mysqli_query($con, $query);
                     $checkrecords = mysqli_num_rows($result);
-                    if($checkrecords == 1){
+                    if($checkrecords != 0){
                         $i = 1;
                         while($row = mysqli_fetch_array($result)){
                 ?>
