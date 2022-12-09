@@ -67,7 +67,7 @@
     <div class="container mt-5">
         <?php while($srow = mysqli_fetch_array($result)){ 
             ?>
-            <form method="POST" action="updaterecord.php">
+            <form method="POST" action="updata.php">
                 <input type="hidden" class="form-control" name="uid" value="<?php echo $uid; ?>">
                 <div class="form-group">
                     <label for="name">Name</label>

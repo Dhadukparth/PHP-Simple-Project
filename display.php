@@ -1,4 +1,9 @@
-<?php include 'connection.php' ?>
+<?php 
+    include 'connection.php'; 
+    session_start();
+    
+    if($_SESSION['uname'] != ""){
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,6 +57,21 @@
         Display Records
     </h2>
     <div class="container mt-5">
+        <form action="display.php" method="post">
+            <div class="d-flex w-100 justify-content-between align-items-center">
+                <div class="form-group w-75 mb-4 mr-2">
+                    <label for="sorting"></label>
+                    <select class="form-control" name="sortingvalue" id="sorting">
+                        <option value="name">Name</option>
+                        <option value="username">Username</option>
+                        <option value="email">Email</option>
+                    </select>
+                </div>
+                <div class="ml-2 w-25">
+                    <button type="submit" name="sorting" class="w-100 btn btn-outline-primary">Sort</button>
+                </div>
+            </div>
+        </form>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -70,7 +90,15 @@
             </thead>
             <tbody>
                 <?php
-                    $query = "SELECT * FROM `users`";
+                    $query = "";
+                    if (isset($_POST['sorting'])){
+                        $sort = $_POST['sortingvalue'];
+                        $query = "SELECT * FROM `users` ORDER BY ".$sort;
+                    }
+                    else{
+                        $query = "SELECT * FROM `users`";
+                    }
+
                     $result = mysqli_query($con, $query);
                     $checkrecords = mysqli_num_rows($result);
                     if($checkrecords != 0){
@@ -109,3 +137,10 @@
 </body>
 
 </html>
+
+<?php 
+    }
+    else{
+        header('location: index.php');
+    }    
+?>

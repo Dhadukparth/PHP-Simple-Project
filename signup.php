@@ -53,7 +53,7 @@
                     </div>
                     
                     <div class="form container w-75">
-                        <form method="POST">
+                        <form action="signup.php" method="POST">
                             <div class="form-outline my-3 position-relative">
                                 <input type="text" name="fullname" id="name" class="form-control" required>
                                 <label for="name" class="form-label bg-white">Name</label>
@@ -172,7 +172,7 @@
             $sql = "INSERT INTO `users`(`name`, `username`, `email`, `age`, `dob`, `country`, `state`, `city`, `password`) VALUES ('$fullname','$username','$email','$age','$dob','$country','$state','$city','$password')";
             $query = mysqli_query($con, $sql);
             if($query){
-                header("location: index.html");
+                echo "<script> location.href='index.php' </script>";
             }
             else{
                 echo "<script> alert('Sorry! This Record Is Not Saved.')</script>";
