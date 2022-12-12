@@ -79,7 +79,7 @@
                                 <td><?php echo $row['city'];?></td>
                                 <td><?php echo $row['state'];?></td>
                                 <td><?php echo $row['country'];?></td>
-                                <td><a href="update.php?uid=<?php echo $row['id']; ?>" class="btn btn-primary">Edit</a></td>
+                                <td><a href="edit.php?uid=<?php echo $row['id']; ?>" class="btn btn-primary">Edit</a></td>
                                 <td><a href="delete.php?uid=<?php echo $row['id']; ?>" class="btn btn-danger" onclick="return confirm('Are Your Sure This Record Is delete.');">Delete</a></td>
                             </tr>
                 <?php
