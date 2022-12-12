@@ -21,21 +21,41 @@
         Display Records
     </h2>
     <div class="container mt-5">
-        <form action="display.php" method="post">
-            <div class="d-flex w-100 justify-content-between align-items-center">
-                <div class="form-group w-75 mb-4 mr-2">
-                    <label for="sorting"></label>
-                    <select class="form-control" name="sortingvalue" id="sorting">
-                        <option value="name">Name</option>
-                        <option value="username">Username</option>
-                        <option value="email">Email</option>
-                    </select>
-                </div>
-                <div class="ml-2 w-25">
-                    <button type="submit" name="sorting" class="w-100 btn btn-outline-primary">Sort</button>
-                </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <form action="display.php" method="post" class="w-100">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <select class="form-control" name="sortingvalue" id="sorting">
+                                    <option value="name">Name</option>
+                                    <option value="username">Username</option>
+                                    <option value="email">Email</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <button type="submit" name="sorting" class="btn btn-outline-primary">Sort</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
+            <div class="col-lg-4">
+            <form action="display.php" method="post" class="w-100">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                <input type="text" name="searchValue" id="UserSearch" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <button type="submit" name="search" class="btn btn-outline-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -59,6 +79,10 @@
                         $sort = $_POST['sortingvalue'];
                         $query = "SELECT * FROM `users` ORDER BY ".$sort;
                     }
+                    else if (isset($_POST['search'])){ 
+                        $searchValue = $_POST['searchValue'];
+                        $query = "SELECT * FROM `users` WHERE name LIKE '%$searchValue%' OR username LIKE '%$searchValue%' OR email LIKE '%$searchValue%'";
+                    }
                     else{
                         $query = "SELECT * FROM `users`";
                     }
@@ -79,8 +103,8 @@
                                 <td><?php echo $row['city'];?></td>
                                 <td><?php echo $row['state'];?></td>
                                 <td><?php echo $row['country'];?></td>
-                                <td><a href="edit.php?uid=<?php echo $row['id']; ?>" class="btn btn-primary">Edit</a></td>
-                                <td><a href="delete.php?uid=<?php echo $row['id']; ?>" class="btn btn-danger" onclick="return confirm('Are Your Sure This Record Is delete.');">Delete</a></td>
+                                <td><a href="edit.php?uid=<?php echo $row['id']; ?>" class="btn btn-outline-primary">Edit</a></td>
+                                <td><a href="delete.php?uid=<?php echo $row['id']; ?>" class="btn btn-outline-danger" onclick="return confirm('Are Your Sure This Record Is delete.');">Delete</a></td>
                             </tr>
                 <?php
                             $i++;
@@ -108,3 +132,7 @@
         header('location: index.php');
     }    
 ?>
+
+
+
+<!-- SELECT * FROM `users` WHERE name LIKE '%%' OR username LIKE '%%' OR email LIKE '%%' OR age LIKE '%%' OR country LIKE '%%' state LIKE '%%' OR city LIKE '%%' -->
