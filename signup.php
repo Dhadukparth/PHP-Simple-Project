@@ -53,7 +53,10 @@
                     </div>
                     
                     <div class="form container w-75">
-                        <form action="signup.php" method="POST">
+                        <form action="signup.php" method="POST" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <input type="file" name="uploadProfile" class="form-control-file" id="newprofileImage" accept=".jpg, .png, .jpeg">
+                            </div>
                             <div class="form-outline my-3 position-relative">
                                 <input type="text" name="fullname" id="name" class="form-control" required>
                                 <label for="name" class="form-label bg-white">Name</label>
@@ -148,7 +151,7 @@
         </div>
     </div>
 
-    <script src="assets/js/jquery.min.js"></script
+    <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
 </body>
@@ -168,16 +171,36 @@
         $password = $_POST['password'];
         $repassword = $_POST['repassword'];
 
-        if ($password == $repassword){
-            $sql = "INSERT INTO `users`(`name`, `username`, `email`, `age`, `dob`, `country`, `state`, `city`, `password`) VALUES ('$fullname','$username','$email','$age','$dob','$country','$state','$city','$password')";
-            $query = mysqli_query($con, $sql);
-            if($query){
-                echo "<script> location.href='index.php' </script>";
+        if(isset($_FILES['uploadProfile'])){
+            $tempFileName = $_FILES["uploadProfile"]["tmp_name"];
+            $fileName = $_FILES["uploadProfile"]["name"];
+            $path = "C:/wamp64/www/phpconntivity/upload/";
+            $dest = $path.$fileName;
+            if(move_uploaded_file($tempFileName,$dest)){
+
+                if ($password == $repassword){
+                    $sql = "INSERT INTO `users`(`name`, `username`, `email`, `age`, `dob`, `profile`, `country`, `state`, `city`, `password`) 
+                    VALUES ('$fullname','$username','$email','$age','$dob', '$fileName','$country','$state','$city','$password')";
+                    $query = mysqli_query($con, $sql);
+                    
+                    if($query){
+                        echo "<script> location.href='index.php' </script>";
+                    }
+                    else{
+                        echo "<script> alert('Sorry! This Record Is Not Saved.')</script>";
+                    }
+                }
+                else{
+                    echo "<script> alert('Sorry! Both password are not matched.')</script>";
+                }
             }
             else{
-                echo "<script> alert('Sorry! This Record Is Not Saved.')</script>";
+                echo "<script> alert('Sorry! Your File Is not Uploaded.')</script>";
             }
-
+        }
+        else{
+            echo "<script> alert('Please, Select your profile image.')</script>";
         }
     }
+
 ?>

@@ -31,8 +31,16 @@
     <div class="container mt-5">
         <?php while($srow = mysqli_fetch_array($result)){ 
             ?>
-            <form method="POST" action="updata.php">
+            <form method="POST" action="updata.php" enctype="multipart/form-data">
                 <input type="hidden" class="form-control" name="uid" value="<?php echo $uid; ?>">
+
+                <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
+                    <div style="width: 200px; height: 200px;">
+                        <img src="upload/<?php echo $srow['profile']; ?>" alt="<?php echo $srow['profile']; ?>" title="<?php echo $srow['profile']; ?>" class="w-100 h-100 rounded-circle">
+                    </div>
+                    <input type="file" name="updateProfileImage" class="form-control-file my-3" value="<?php echo $srow['profile']; ?>" id="profileImage" accept=".jpg, .png, .jpeg" style="width: 9% !important;">
+                </div>
+
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" name="upname" value="<?php echo $srow['name']; ?>" id="name" placeholder="Enter Your Name" required>

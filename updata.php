@@ -16,16 +16,33 @@
             $state = $_POST['upstate'];
             $country = $_POST['upcountry'];
 
-            $query = "UPDATE `users` SET `name`='$name', `username`='$username', `email`='$email', `age`='$age', `dob`='$dob', `country`='$country', `state`='$state', `city`='$city' WHERE id='$uid'";
-            $result = mysqli_query($con, $query);
-            $checkquery = mysqli_num_rows($result);
-            if($checkquery == 1){
-                header("location: display.php");
+            if(isset($_FILES['updateProfileImage'])){
+
+                $tempname = $_FILES["updateProfileImage"]["tmp_name"];
+                $filename = $_FILES["updateProfileImage"]["name"];
+                $uploadfilepath = "C:/wamp64/www/phpconntivity/upload/";
+                $dest = $uploadfilepath.$filename;
+
+                if(move_uploaded_file($tempname, $dest)){
+                    $upquery = "UPDATE `users` SET `name`='$name', `username`='$username', `email`='$email', `age`='$age', `dob`='$dob', `profile`='$filename', `country`='$country', `state`='$state', `city`='$city' WHERE id='$uid'";
+                    $result = mysqli_query($con, $upquery);
+                    $checkquery = mysqli_num_rows($result);
+                    if($checkquery){
+                        header("location: display.php");
+                    }
+                    else{
+                        header("location: display.php");
+                    }
+                }
+                else{
+                    echo "<script> alert('Sorry! Your File Is not Uploaded.')</script>";
+                }
             }
+
             else{
-                header("location: display.php");
+                echo "<script> alert('Please, Select your profile image.')</script>";
             }
-            
+
         }
     }
 
